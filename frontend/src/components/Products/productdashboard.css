@@ -1,15 +1,16 @@
 /* ProductDashboard.css */
 
 h2 {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
+  width: 100vw;
 }
 
 .back-btn {
   padding: 10px;
   border-radius: 10px;
   position: relative;
-  top: -25px;
+  top: -45px;
   left: 20px;
 }
 

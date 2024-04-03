@@ -4,6 +4,10 @@
   font-family: sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   justify-content: center;

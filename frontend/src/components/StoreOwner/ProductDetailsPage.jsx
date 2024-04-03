@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./ProductDetailsPage.css";
 
 const ProductDetailsPage = () => {
-  const { productId } = useParams(); // Destructure productId from route params
+  const { productId } = useParams();
   const [productDetails, setProductDetails] = useState([]);
-  const [formData, setFormData] = useState({
-    date: "",
-    quantity: "",
-    movementType: "",
-  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,24 +15,31 @@ const ProductDetailsPage = () => {
 
   const fetchProductDetails = () => {
     axios
-      .get(`http://localhost:8081/products/`) // Use productId to fetch specific product details
+      .get(`http://localhost:8081/products`)
       .then((res) => {
         setProductDetails(res.data);
       })
       .catch((err) => console.error(err));
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedProductDetails = [...productDetails];
+    updatedProductDetails[index][name] = value;
+    setProductDetails(updatedProductDetails);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, index) => {
     e.preventDefault();
+    const updatedProduct = productDetails[index];
     axios
-      .post(`http://localhost:8081/product-details/${productId}`, formData)
+      .post(
+        `http://localhost:8081/product-details/${productId}`,
+        updatedProduct
+      )
       .then((res) => {
         console.log(res.data);
-        // Redirect or show success message
+        alert("Updated successfully");
       })
       .catch((err) => console.error(err));
   };
@@ -52,47 +55,44 @@ const ProductDetailsPage = () => {
       >
         Back
       </button>
-      <div>
-        <h2>Product Details</h2>
-        {productDetails ? (
-          productDetails.map((product) => (
-            <div key={productId}>
-              <h3>{product.name}</h3>
-              <p>Price: ${product.price}</p>
-              <form onSubmit={handleSubmit}>
-                <label>Date:</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                />
-                <label>Quantity:</label>
-                <input
-                  type="number"
-                  name="quantity"
-                  value={formData.quantity}
-                  onChange={handleChange}
-                />
-                <label>Type of Movement:</label>
-                <select
-                  name="movementType"
-                  value={formData.movementType}
-                  onChange={handleChange}
-                >
-                  <option value="GR">Goods Receipt</option>
-                  <option value="GI">Goods Issue</option>
-                  <option value="TP">Transfer Posting</option>
-                  <option value="ST">Stock Transfer</option>
-                  <option value="RD">Return Delivery</option>
-                </select>
-                <button type="submit">Update</button>
-              </form>
-            </div>
-          ))
-        ) : (
-          <p>Loading...</p>
-        )}
+
+      <h2>Product Details</h2>
+      <div className="product-details-container">
+        {productDetails.map((product, index) => (
+          <div key={index} className="product-details-item">
+            <h3>{product.name}</h3>
+            <p>Price: ${product.price}</p>
+            <form onSubmit={(e) => handleSubmit(e, index)}>
+              <label>Date:</label>
+              <input
+                type="date"
+                name="date"
+                value={product.date}
+                onChange={(e) => handleChange(e, index)}
+              />
+              <label>Quantity:</label>
+              <input
+                type="number"
+                name="quantity"
+                value={product.quantity}
+                onChange={(e) => handleChange(e, index)}
+              />
+              <label>Type of Movement:</label>
+              <select
+                name="movementType"
+                value={product.movementType}
+                onChange={(e) => handleChange(e, index)}
+              >
+                <option value="GR">Goods Receipt</option>
+                <option value="GI">Goods Issue</option>
+                <option value="TP">Transfer Posting</option>
+                <option value="ST">Stock Transfer</option>
+                <option value="RD">Return Delivery</option>
+              </select>
+              <button type="submit">Update</button>
+            </form>
+          </div>
+        ))}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./Userview.css";
 
 const Userview = () => {
   const [userviewData, setUserviewData] = useState([]);
@@ -18,30 +19,30 @@ const Userview = () => {
   return (
     <div>
       <h2>Userview Data</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Quantity</th>
-            <th>Movement Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userviewData.map((data, index) => (
-            <tr key={index}>
-              <td>{data.name}</td>
-              <td>{data.price}</td>
-              <td>{data.description}</td>
-              <td>{data.date}</td>
-              <td>{data.quantity}</td>
-              <td>{data.movementType}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="data-container">
+        {userviewData.map((data, index) => (
+          <div key={index} className="data-box">
+            <div className="data-item">
+              <strong>Name:</strong> {data.name}
+            </div>
+            <div className="data-item">
+              <strong>Price:</strong> {data.price}
+            </div>
+            <div className="data-item">
+              <strong>Description:</strong> {data.description}
+            </div>
+            <div className="data-item">
+              <strong>Date:</strong> {data.date}
+            </div>
+            <div className="data-item">
+              <strong>Quantity:</strong> {data.quantity}
+            </div>
+            <div className="data-item">
+              <strong>Movement Type:</strong> {data.movementType}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

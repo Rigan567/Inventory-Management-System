@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./productdashboard.css";
+import "./ProductForm.css";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ProductForm = () => {
@@ -30,7 +31,7 @@ const ProductForm = () => {
   };
 
   return (
-    <>
+    <div className="background">
       <h2>Create/Update Product</h2>
       <button
         className="back-btn"
@@ -41,7 +42,7 @@ const ProductForm = () => {
         Back
       </button>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-container ">
           <input
             type="text"
             name="name"
@@ -66,7 +67,7 @@ const ProductForm = () => {
           <button type="submit">Submit</button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

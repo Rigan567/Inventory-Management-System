@@ -47,15 +47,20 @@ app.post("/products/:id", (req, res) => {
 
   // SQL query to insert data into products table
   const productsSql =
-    "INSERT INTO products (id, name, price, description) VALUES (?, ?, ?, ?)";
+    "INSERT INTO products (productId, name, price, description) VALUES (?, ?, ?, ?)";
   const productsValues = [productId, name, price, description];
+
+  // SQL query to insert data into productdetails table
+  const productDetailsSql =
+    "INSERT INTO productdetails (productId, ProductName) VALUES (?, ?)";
+  const productDetailsValues = [productId, name];
 
   // SQL query to insert data into userview table
   const userviewSql =
     "INSERT INTO userview (productId, name, price, description) VALUES (?, ?, ?, ?)";
   const userviewValues = [productId, name, price, description];
 
-  // Execute both SQL queries
+  // Execute the SQL queries
   db.query(productsSql, productsValues, (productsErr, productsData) => {
     if (productsErr) {
       console.error(productsErr);
@@ -64,19 +69,33 @@ app.post("/products/:id", (req, res) => {
         .json({ error: "Failed to create/update product in products table" });
     }
 
-    // Insert into userview table only if the product creation/update in products table is successful
-    db.query(userviewSql, userviewValues, (userviewErr, userviewData) => {
-      if (userviewErr) {
-        console.error(userviewErr);
-        return res
-          .status(500)
-          .json({ error: "Failed to create/update product in userview table" });
-      }
+    // Insert data into the productdetails table
+    db.query(
+      productDetailsSql,
+      productDetailsValues,
+      (productDetailsErr, productDetailsData) => {
+        if (productDetailsErr) {
+          console.error(productDetailsErr);
+          return res
+            .status(500)
+            .json({ error: "Failed to insert data into productdetails table" });
+        }
 
-      return res
-        .status(201)
-        .json({ message: "Product created/updated successfully" });
-    });
+        // Insert data into the userview table
+        db.query(userviewSql, userviewValues, (userviewErr, userviewData) => {
+          if (userviewErr) {
+            console.error(userviewErr);
+            return res.status(500).json({
+              error: "Failed to create/update product in userview table",
+            });
+          }
+
+          return res
+            .status(201)
+            .json({ message: "Product created/updated successfully" });
+        });
+      }
+    );
   });
 });
 
@@ -119,8 +138,8 @@ app.post("/product-details/:id", (req, res) => {
 
   // SQL query to insert data into userview table
   const userviewSql =
-    "INSERT INTO userview (date, quantity, movementType) VALUES (?, ?, ?, ?)";
-  const userviewValues = [date, quantity, movementType];
+    "INSERT INTO userview (productId, date, quantity, movementType) VALUES (?, ?, ?, ?)";
+  const userviewValues = [productId, date, quantity, movementType];
 
   // Execute both SQL queries
   db.query(
