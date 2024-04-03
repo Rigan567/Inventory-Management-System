@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from "./LoginValidation";
 import axios from "axios";
+import "./signup.css";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -34,27 +35,28 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <h2>Hey welcome </h2>
-      <form onSubmit={submitHandler}>
-        <input
-          type="email"
-          placeholder="Enter Email"
-          name="email"
-          onChange={handleInput}
-        ></input>
-        <input
-          type="password"
-          placeholder="Enter Pass"
-          name="password"
-          onChange={handleInput}
-        ></input>
-        <button type="submit">Login</button>
-      </form>
-      <p>
-        <Link to={"/signup"}>Create New Account</Link>
-      </p>
-      {error && <h2>{error.message}</h2>}
+    <div className="box">
+      <div className="container">
+        <form onSubmit={submitHandler}>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            name="email"
+            onChange={handleInput}
+          ></input>
+          <input
+            type="password"
+            placeholder="Enter Pass"
+            name="password"
+            onChange={handleInput}
+          ></input>
+          <button type="submit">Login</button>
+        </form>
+        <p className="link">
+          <Link to={"/signup"}>Create New Account</Link>
+        </p>
+        {error && <h2>{error.message}</h2>}
+      </div>
     </div>
   );
 };
