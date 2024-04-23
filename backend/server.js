@@ -1,10 +1,12 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -237,6 +239,18 @@ app.get("/userview", (req, res) => {
 app.post("/logout", (req, res) => {
   // Perform any necessary cleanup tasks (e.g., invalidate tokens)
   res.status(200).json({ message: "Logout successful" });
+});
+
+// API endpoint for product search
+app.post("/search", (req, res) => {
+  const searchTerm = req.body.searchTerm;
+  const sql = `SELECT * FROM products WHERE name LIKE '%${searchTerm}%'`;
+  db.query(sql, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    res.json(results);
+  });
 });
 
 app.listen(8081, () => {

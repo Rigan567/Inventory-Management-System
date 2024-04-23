@@ -34,6 +34,7 @@ const Signup = () => {
   return (
     <div className="box">
       <div className="container">
+        <h3>Register Here</h3>
         <form onSubmit={submitHandler}>
           <input
             type="text"

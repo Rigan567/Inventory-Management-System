@@ -7,6 +7,7 @@ import Signup from "./components/Signup";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductDetailsPage from "./components/StoreOwner/ProductDetailsPage";
 import Userview from "./components/Userview";
+import ProductSearch from "./components/Products/ProductSearch";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           />{" "}
           <Route path="//products/userview" element={<Userview />} />
           {/* Include productId parameter */}
+          <Route path="/productsearch" element={<ProductSearch />}></Route>
         </Routes>
       </Router>
     </div>

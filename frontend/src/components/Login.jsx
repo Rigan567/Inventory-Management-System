@@ -27,7 +27,7 @@ const Login = () => {
           if (res.data === "Success") {
             navigate("/home");
           } else {
-            alert("Please Create Account");
+            alert("Credentials Donot Match");
           }
         })
         .catch((err) => console.log(err));
@@ -37,6 +37,7 @@ const Login = () => {
   return (
     <div className="box">
       <div className="container">
+        <h3>Login</h3>
         <form onSubmit={submitHandler}>
           <input
             type="email"

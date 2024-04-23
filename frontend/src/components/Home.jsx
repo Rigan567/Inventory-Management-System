@@ -35,7 +35,11 @@ const Home = () => {
         className="userview-btn"
         onClick={() => navigate("/products/userview")}
       >
-        USERVIEW
+        Userview
+      </button>
+
+      <button className="search-btn" onClick={() => navigate("/productsearch")}>
+        Search For Products
       </button>
 
       <button className="logout-btn" onClick={handleLogout}>
