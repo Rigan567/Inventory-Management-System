@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import "./ProductDetailsPage.css";
 
 const ProductDetailsPage = () => {
@@ -39,7 +40,7 @@ const ProductDetailsPage = () => {
       )
       .then((res) => {
         console.log(res.data);
-        alert("Updated successfully");
+        toast.success("Updated Successfully ");
       })
       .catch((err) => console.error(err));
   };

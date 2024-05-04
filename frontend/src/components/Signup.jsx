@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import Validation from "./SignupValidation";
 import axios from "axios";
 import "./signup.css";
@@ -26,6 +27,7 @@ const Signup = () => {
         .post("http://localhost:8081/signup", values)
         .then((res) => {
           console.log(res);
+          toast.success("Registered Successfully");
           navigate("/");
         })
         .catch((err) => console.log(err));

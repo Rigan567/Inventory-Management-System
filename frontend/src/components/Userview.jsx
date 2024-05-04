@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Userview.css";
+import { useNavigate } from "react-router-dom";
 
 const Userview = () => {
   const [userviewData, setUserviewData] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:8081/userview")
@@ -19,6 +20,15 @@ const Userview = () => {
   return (
     <div>
       <h2>Userview Data</h2>
+
+      <button
+        className="back-btn"
+        onClick={() => {
+          navigate("/home");
+        }}
+      >
+        Back
+      </button>
       <div className="data-container">
         {userviewData.map((data, index) => (
           <div key={index} className="data-box">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import "./productdashboard.css";
 import "./ProductForm.css";
@@ -23,7 +24,8 @@ const ProductForm = () => {
       .post(`http://localhost:8081/products/${productId}`, formData)
       .then((res) => {
         console.log(res.data);
-        navigate("/productdashboard");
+        toast.success("Product Added SuccessFully");
+
         // Reset form after successful submission
         setFormData({ name: "", price: "", description: "" });
       })

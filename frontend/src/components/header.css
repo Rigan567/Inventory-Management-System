@@ -1,0 +1,53 @@
+nav {
+  background-color: #371d55;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 20px;
+  box-shadow: 0px 8px 8px 2px rgb(1, 1, 32);
+}
+
+nav h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+}
+
+nav div a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+nav div a:hover {
+  color: #ff6347; /* change color on hover */
+}
+
+nav div p {
+  background-color: #ff6347;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+nav div p:hover {
+  background-color: #dc143c; /* change color on hover */
+}
+
+/* Style for shopping cart icon */
+nav div svg {
+  width: 24px;
+  height: 24px;
+}

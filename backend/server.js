@@ -235,6 +235,21 @@ app.get("/userview", (req, res) => {
   });
 });
 
+//for userview and cart
+app.get("/products", (req, res) => {
+  const query = "SELECT * FROM products";
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error executing MySQL query: " + err.stack);
+      res.status(500).json({ error: "Error fetching products" });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
 //logOut.........................
 app.post("/logout", (req, res) => {
   // Perform any necessary cleanup tasks (e.g., invalidate tokens)
